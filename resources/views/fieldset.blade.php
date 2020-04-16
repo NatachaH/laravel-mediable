@@ -20,7 +20,9 @@
 
   <div>
     <input type="hidden" name="media_to_add[0][type]" value="{{ $type }}" />
-    <x-bs-input name="media_to_add[0][name]" :placeholder="__('mediable::mediable.input.name')" />
+    @if($hasName)
+      <x-bs-input name="media_to_add[0][name]" :placeholder="__('mediable::mediable.input.name')" />
+    @endif
     <x-bs-input-file name="media_to_add[0][file]" :placeholder="__('mediable::mediable.input.placeholder')" :button="__('mediable::mediable.input.button')" />
   </div>
 

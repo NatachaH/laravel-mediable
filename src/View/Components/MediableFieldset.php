@@ -26,15 +26,22 @@ class MediableFieldset extends Component
     public $currentMedia;
 
     /**
+     * Media with name input
+     * @var boolean
+     */
+    public $hasName;
+
+    /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($legend, $type, $current = [])
+    public function __construct($legend, $type, $current = [], $hasName = false)
     {
         $this->legend       = $legend;
         $this->type         = $type;
         $this->currentMedia = $current;
+        $this->hasName      = $hasName;
     }
 
     /**
