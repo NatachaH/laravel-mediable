@@ -20,14 +20,21 @@ class MediableFieldset extends Component
     public $type;
 
     /**
+     * Array of the current media
+     * @var array
+     */
+    public $currentMedia;
+
+    /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($legend, $type)
+    public function __construct($legend, $type, $current = [])
     {
-        $this->legend = $legend;
-        $this->type   = $type;
+        $this->legend       = $legend;
+        $this->type         = $type;
+        $this->currentMedia = $current;
     }
 
     /**

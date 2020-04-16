@@ -14,6 +14,8 @@ return [
     'input' => [
       'placeholder' => 'Choose a file',
       'button'      => 'Browse'
-    ]
+    ],
+
+    'delete' => 'Delete the media'
 
 ];

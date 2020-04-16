@@ -70,12 +70,11 @@ trait Mediable
      {
           foreach ($media_to_add as $key => $media)
           {
+              // If no file, don't do anything
+              if(empty($media['file'])) { continue; }
 
               // Get the file
               $file = $media['file'];
-
-              // If no file, don't do anything
-              if(empty($media['file'])) { continue; }
 
               // Create a new Media
               $new = new Media;
