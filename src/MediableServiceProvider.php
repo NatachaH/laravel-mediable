@@ -33,12 +33,12 @@ class MediableServiceProvider extends ServiceProvider
         $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'mediable');
 
         // BLADES
-
+        Blade::component('media-fieldset', \Nh\AccessControl\View\Components\MediaFieldset::class);
 
         // VENDORS
         $this->publishes([
             __DIR__.'/../database/migrations/2020_04_16_000001_create_media_table.php' => base_path('database/migrations/2020_04_16_000001_create_media_table.php')
-        ], 'access-control');
+        ], 'mediable');
 
 
     }
