@@ -1,10 +1,10 @@
 <?php
 
-namespace Nh\AccessControl\View\Components;
+namespace Nh\Mediable\View\Components;
 
 use Illuminate\View\Component;
 
-class MediaFieldset extends Component
+class MediableFieldset extends Component
 {
 
     /**

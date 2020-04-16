@@ -27,13 +27,13 @@ class MediableServiceProvider extends ServiceProvider
     {
 
         // VIEWS
-        $this->loadViewsFrom(__DIR__.'/../resources/views', 'media');
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'mediable');
 
         // TRANSLATIONS
         $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'mediable');
 
         // BLADES
-        Blade::component('media-fieldset', \Nh\AccessControl\View\Components\MediaFieldset::class);
+        Blade::component('mediable-fieldset', \Nh\Mediable\View\Components\MediableFieldset::class);
 
         // VENDORS
         $this->publishes([

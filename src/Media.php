@@ -4,6 +4,7 @@ namespace Nh\Mediable;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class Media extends Model
 {
@@ -35,7 +36,18 @@ class Media extends Model
     public function getFolderAttribute()
     {
         $model = class_basename($this->mediable_type);
-        return Str::lower((Str::plural($model));
+        return Str::lower(Str::plural($model));
+    }
+
+    /**
+     * Get the url.
+     *
+     * @return string
+     */
+    public function getUrlAttribute()
+    {
+        $folder = $this->folder.'/'.Str::plural($this->format);
+        return Storage::disk('public')->url($folder.'/'.$this->filename);
     }
 
     /**
@@ -82,7 +94,7 @@ class Media extends Model
 
           // Video
           case 'video/mpeg':
-          case 'video/mp4'
+          case 'video/mp4':
             return 'video';
             break;
 
@@ -103,16 +115,13 @@ class Media extends Model
     public function upload($file)
     {
         // Define the folder
-        $folder = $this->folder.'/'.(Str::plural($this->format);
+        $folder = $this->folder.'/'.Str::plural($this->format);
 
         // Create the folder if needed
-        Storage::makeDirectory($folder);
+        Storage::disk('public')->makeDirectory($folder);
 
         // Store the file
-        Storage::putFileAs($folder, $file, $this->id);
-
-        // Return the path
-        return $path;
+        return Storage::disk('public')->putFileAs($folder, $file, $this->filename);
     }
 
     /**
@@ -121,16 +130,16 @@ class Media extends Model
      */
     public function remove()
     {
-        $folder = $this->folder.'/'.(Str::plural($this->format);
+        $folder = $this->folder.'/'.Str::plural($this->format);
         $filename = $this->filename;
 
         // Delete file at the root: foos/images/1.jpg
-        Storage::delete($folder.'/'.$filename);
+        Storage::disk('public')->delete($folder.'/'.$filename);
 
         // Get all subfolder and delete the file in each of them : foos/images/thumbnails/myfile_1.jpg
-        foreach (Storage::allDirectories($folder) as $directory)
+        foreach (Storage::disk('public')->allDirectories($folder) as $directory)
         {
-           Storage::delete($directory.'/'.$filename);
+           Storage::disk('public')->delete($directory.'/'.$filename);
         }
     }
 

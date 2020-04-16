@@ -16,6 +16,7 @@ trait Mediable
      */
     protected static function bootMediable()
     {
+        // After an item is saved
         static::saved(function ($model)
         {
             // Add some media
@@ -28,6 +29,16 @@ trait Mediable
             if(request()->has('media_to_delete'))
             {
                 $model->deleteMedia(request()->media_to_delete);
+            }
+        });
+
+        // Before an item is deleted
+        static::deleting(function ($model)
+        {
+            if($model->hasMedia())
+            {
+                $media_to_delete = $model->media->modelKeys();
+                $model->deleteMedia($media_to_delete);
             }
         });
     }
@@ -59,6 +70,10 @@ trait Mediable
      {
           foreach ($media_to_add as $key => $media)
           {
+
+              // Get the file
+              $file = $media['file'];
+
               // If no file, don't do anything
               if(empty($media['file'])) { continue; }
 
@@ -68,8 +83,8 @@ trait Mediable
               // Fill the information
               $new->fill([
                 'name'        => 'file',
-                'mime'        => $media['file']->getMimeType(),
-                'extension'   => $media['file']->extension(),
+                'mime'        => $file->getMimeType(),
+                'extension'   => $file->extension(),
                 'type'        => $media['type']
               ]);
 
@@ -77,22 +92,29 @@ trait Mediable
               $this->media()->save($new);
 
               // Upload the file
-              $upload = $media->upload($media['file']);
+              $upload = $new->upload($file);
           }
      }
 
      /**
       * Delete multiple media to a model (Remove from storage and delete from DB)
-      * @param  array $media_to_delete 
+      * @param  array $media_to_delete
       * @return void
       */
      public function deleteMedia($media_to_delete)
      {
-         foreach($media_to_delete as $media)
+         foreach($media_to_delete as $id)
          {
-             // Remove all file in Storage and in DB foreach media
-             $this->media->find($media)->remove()->delete();
+            // Find the Media
+            $media = $this->media->find($id);
+
+            // Remove all file in Storage
+            $media->remove();
+
+            // Delete from the DB
+            $media->delete();
          }
      }
+
 
 }
