@@ -1,0 +1,26 @@
+{
+    "name": "nh/mediable",
+    "description": "Upload and attach media to a model",
+    "license": "MIT",
+    "type": "library",
+    "require": {
+      "nh/bs-component": "dev-master"
+    },
+    "author": {
+        "name": "Natacha Herth",
+        "email": "info@natachaherth.ch"
+    },
+    "autoload": {
+        "psr-4": {
+            "Nh\\Mediable\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Nh\\Mediable\\MediableServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev"
+}
