@@ -16,6 +16,4 @@ return [
       'button'      => 'Browse'
     ],
 
-    'delete' => 'Delete the media'
-
 ];

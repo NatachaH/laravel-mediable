@@ -32,16 +32,37 @@ class MediableFieldset extends Component
     public $hasName;
 
     /**
+     * Can you add/remove dynamically the inputs (nh/bs-component)
+     * @var boolean
+     */
+    public $isDynamic;
+
+    /**
+     * Minimum nbr of inputs
+     * @var int
+     */
+    public $min;
+
+    /**
+     * Maximum nbr of inputs
+     * @var int
+     */
+    public $max;
+
+    /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($legend, $type, $current = [], $hasName = false)
+    public function __construct($legend, $type, $current = [], $hasName = false, $isDynamic = false, $min = 1, $max = null)
     {
         $this->legend       = $legend;
         $this->type         = $type;
         $this->currentMedia = $current;
         $this->hasName      = $hasName;
+        $this->isDynamic    = $isDynamic;
+        $this->min          = $min;
+        $this->max          = $max;
     }
 
     /**
