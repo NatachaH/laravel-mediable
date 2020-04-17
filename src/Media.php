@@ -116,7 +116,7 @@ class Media extends Model
     public function getUrl($subfolder = null)
     {
         $subfolder = is_null($subfolder) ? '/' : '/'.$subfolder.'/';
-        return Storage::disk('public')->url($this->folder.$subfolder.$this->filename);
+        return Storage::disk(config('mediable.disk'))->url($this->folder.$subfolder.$this->filename);
     }
 
     /**
@@ -127,7 +127,7 @@ class Media extends Model
     public function getFile($subfolder = null)
     {
         $subfolder = is_null($subfolder) ? '/' : '/'.$subfolder.'/';
-        return Storage::disk('public')->get($this->folder.$subfolder.$this->filename);
+        return Storage::disk(config('mediable.disk'))->get($this->folder.$subfolder.$this->filename);
     }
 
     /**
@@ -159,10 +159,10 @@ class Media extends Model
     public function upload($file)
     {
         // Create the folder if needed
-        Storage::disk('public')->makeDirectory($this->folder);
+        Storage::disk(config('mediable.disk'))->makeDirectory($this->folder);
 
         // Store the file
-        return Storage::disk('public')->putFileAs($this->folder, $file, $this->filename);
+        return Storage::disk(config('mediable.disk'))->putFileAs($this->folder, $file, $this->filename);
     }
 
     /**
@@ -173,12 +173,12 @@ class Media extends Model
     public function remove()
     {
         // Delete file at the root: foos/images/1.jpg
-        Storage::disk('public')->delete($this->folder.'/'.$this->filename);
+        Storage::disk(config('mediable.disk'))->delete($this->folder.'/'.$this->filename);
 
         // Get all subfolder and delete the file in each of them : foos/images/thumbnails/myfile_1.jpg
-        foreach (Storage::disk('public')->allDirectories($this->folder) as $directory)
+        foreach (Storage::disk(config('mediable.disk'))->allDirectories($this->folder) as $directory)
         {
-           Storage::disk('public')->delete($directory.'/'.$this->filename);
+           Storage::disk(config('mediable.disk'))->delete($directory.'/'.$this->filename);
         }
     }
 
@@ -221,7 +221,7 @@ class Media extends Model
         // Save the new file in the an other folder
         $subfolder = is_null($folder) ? $prefix.$size : $folder;
         $newFolder = $this->folder.'/'.$subfolder;
-        Storage::disk('public')->makeDirectory($newFolder);
+        Storage::disk(config('mediable.disk'))->makeDirectory($newFolder);
         $file->save(storage_path('app/public/'.$newFolder).'/'.$this->filename);
 
     }
