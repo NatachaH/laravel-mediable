@@ -223,9 +223,6 @@ class Media extends Model
         $newFolder = $this->folder.'/'.$subfolder;
         Storage::disk(config('mediable.disk'))->makeDirectory($newFolder);
         $file->save(storage_path('app/public/'.$newFolder).'/'.$this->filename);
-
     }
-
-
 
 }
