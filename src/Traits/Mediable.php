@@ -8,7 +8,6 @@ use Nh\Mediable\Media;
 
 trait Mediable
 {
-
     /**
      * Bootstrap any application services.
      *
@@ -53,7 +52,7 @@ trait Mediable
      }
 
      /**
-      * Check if the model has some media
+      * Check if the model has some media.
       * @return boolean
       */
      public function hasMedia()
@@ -62,11 +61,11 @@ trait Mediable
      }
 
      /**
-      * Add multiple media to a model (Save in DB and upload)
+      * Add multiple media to a model (Save in DB and upload).
       * @param array $media_to_add
       * @return void
       */
-     public function addMedia($media_to_add)
+     private function addMedia($media_to_add)
      {
           foreach ($media_to_add as $key => $media)
           {
@@ -92,15 +91,66 @@ trait Mediable
 
               // Upload the file
               $upload = $new->upload($file);
+
+              // Resize the media
+              $this->resizeMediaByConfig($new);
           }
      }
 
      /**
-      * Delete multiple media to a model (Remove from storage and delete from DB)
+      * Resize a media by config
+      * @param  Nh\Mediable\Media $media
+      * @return void
+      */
+     private function resizeMediaByConfig($media)
+     {
+         // If not an image stop
+         if($media->format != 'image') { return; }
+
+        // Get the mediable config sizes
+        $config = config('mediable.sizes');
+
+        // Create the thumbnail
+        $media->resize($config['thumbnails'],'fit','thumbnails');
+
+        // Resize by size (fit)
+        $sizes = (array)$config[$media->base_folder]['fit'];
+        if(!empty($sizes))
+        {
+            foreach ($sizes as $size)
+            {
+                $media->resize($size);
+            }
+        }
+
+        // Resize by height
+        $heights = (array)$config[$media->base_folder]['height'];
+        if(!empty($heights))
+        {
+            foreach ($heights as $height)
+            {
+                $media->resize($height,'height');
+            }
+        }
+
+        // Resize by width
+        $widths = (array)$config[$media->base_folder]['width'];
+        if(!empty($widths))
+        {
+            foreach ($widths as $width)
+            {
+                $media->resize($width,'width');
+            }
+        }
+
+     }
+
+     /**
+      * Delete multiple media to a model (Remove from storage and delete from DB).
       * @param  array $media_to_delete
       * @return void
       */
-     public function deleteMedia($media_to_delete)
+     private function deleteMedia($media_to_delete)
      {
          foreach($media_to_delete as $id)
          {
@@ -114,6 +164,5 @@ trait Mediable
             $media->delete();
          }
      }
-
 
 }

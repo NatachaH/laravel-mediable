@@ -5,6 +5,7 @@ namespace Nh\Mediable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Image;
 
 class Media extends Model
 {
@@ -29,25 +30,26 @@ class Media extends Model
     }
 
     /**
-     * Get the folder.
+     * Get the base folder.
+     * Exemple: App/Post => posts
      *
      * @return string
      */
-    public function getFolderAttribute()
+    public function getBaseFolderAttribute()
     {
         $model = class_basename($this->mediable_type);
         return Str::lower(Str::plural($model));
     }
 
     /**
-     * Get the url.
+     * Get the folder.
+     * Exemple: posts/images
      *
      * @return string
      */
-    public function getUrlAttribute()
+    public function getFolderAttribute()
     {
-        $folder = $this->folder.'/'.Str::plural($this->format);
-        return Storage::disk('public')->url($folder.'/'.$this->filename);
+        return $this->base_folder.'/'.Str::plural($this->format);
     }
 
     /**
@@ -107,40 +109,123 @@ class Media extends Model
     }
 
     /**
-     * Upload a media in the storage
+     * Get url of a media.
+     * @param  string $subfolder
+     * @return string
+     */
+    public function getUrl($subfolder = null)
+    {
+        $subfolder = is_null($subfolder) ? '/' : '/'.$subfolder.'/';
+        return Storage::disk('public')->url($this->folder.$subfolder.$this->filename);
+    }
+
+    /**
+     * Get file of a media.
+     * @param  string $subfolder
+     * @return string
+     */
+    public function getFile($subfolder = null)
+    {
+        $subfolder = is_null($subfolder) ? '/' : '/'.$subfolder.'/';
+        return Storage::disk('public')->get($this->folder.$subfolder.$this->filename);
+    }
+
+    /**
+     * Get the thumbnail url of a media.
+     *
+     * @return string
+     */
+    public function getThumbnailAttribute()
+    {
+        return $this->format == 'image' ? $this->getUrl('thumbnails') : '';
+    }
+
+    /**
+     * Get the url of a media.
+     *
+     * @return string
+     */
+    public function getUrlAttribute()
+    {
+        return $this->getUrl($subfolder);
+    }
+
+    /**
+     * Upload a media in the storage.
      * @param  Illuminate\Http\UploadedFile $file
      * @param  string $folder
      * @return Response
      */
     public function upload($file)
     {
-        // Define the folder
-        $folder = $this->folder.'/'.Str::plural($this->format);
-
         // Create the folder if needed
-        Storage::disk('public')->makeDirectory($folder);
+        Storage::disk('public')->makeDirectory($this->folder);
 
         // Store the file
-        return Storage::disk('public')->putFileAs($folder, $file, $this->filename);
+        return Storage::disk('public')->putFileAs($this->folder, $file, $this->filename);
     }
 
     /**
-     * Remove a media from Storage
+     * Remove a media from Storage.
+     *
      * @return void
      */
     public function remove()
     {
-        $folder = $this->folder.'/'.Str::plural($this->format);
-        $filename = $this->filename;
-
         // Delete file at the root: foos/images/1.jpg
-        Storage::disk('public')->delete($folder.'/'.$filename);
+        Storage::disk('public')->delete($this->folder.'/'.$this->filename);
 
         // Get all subfolder and delete the file in each of them : foos/images/thumbnails/myfile_1.jpg
-        foreach (Storage::disk('public')->allDirectories($folder) as $directory)
+        foreach (Storage::disk('public')->allDirectories($this->folder) as $directory)
         {
-           Storage::disk('public')->delete($directory.'/'.$filename);
+           Storage::disk('public')->delete($directory.'/'.$this->filename);
         }
     }
+
+    /**
+     * Resize an image.
+     * @param  int $size        The new size of the media
+     * @param  string $method   The method to use for the resize
+     * @param  string $folder   The custom folder where to save it
+     * @return void
+     */
+    public function resize($size, $method = 'fit', $folder = null)
+    {
+        // If not an image stop
+        if($this->format != 'image') { return; }
+
+        // Make a new image from original
+        $file = Image::make($this->getFile());
+
+        // Resize by method
+        switch ($method)
+        {
+            case 'height':
+                $prefix = 'h-';
+                $file->resize(null, $size, function ($constraint) {
+                    $constraint->aspectRatio();
+                });
+                break;
+            case 'width':
+                $prefix = 'w-';
+                $file->resize($size, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                });
+                break;
+            default:
+                $prefix = 'f-';
+                $file->fit($size);
+                break;
+        }
+
+        // Save the new file in the an other folder
+        $subfolder = is_null($folder) ? $prefix.$size : $folder;
+        $newFolder = $this->folder.'/'.$subfolder;
+        Storage::disk('public')->makeDirectory($newFolder);
+        $file->save(storage_path('app/public/'.$newFolder).'/'.$this->filename);
+
+    }
+
+
 
 }
