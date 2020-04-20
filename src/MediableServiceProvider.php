@@ -29,7 +29,7 @@ class MediableServiceProvider extends ServiceProvider
         // VENDORS
         $this->publishes([
             __DIR__.'/../database/migrations/2020_04_16_000001_create_media_table.php' => base_path('database/migrations/2020_04_16_000001_create_media_table.php'),
-            __DIR__.'/../config/mediable.php' => config_path()
+            __DIR__.'/../config/mediable.php' => config_path('mediable.php')
         ], 'mediable');
 
     }
