@@ -24,6 +24,12 @@ trait Mediable
                 $model->addMedia(request()->media_to_add);
             }
 
+            // Update some media
+            if(request()->has('media_to_update'))
+            {
+                $model->updateMedia(request()->media_to_update);
+            }
+
             // Delete some medias
             if(request()->has('media_to_delete'))
             {
@@ -113,7 +119,6 @@ trait Mediable
         // Create the thumbnail
         $media->resize($config['thumbnails'],'fit','thumbnails');
 
-        // If no size config for the content stop
         if(!isset($config[$media->base_folder])) { return; }
 
         // Resize by size (fit)
@@ -145,7 +150,20 @@ trait Mediable
                 $media->resize($width,'width');
             }
         }
+     }
 
+     /**
+      * Update multiple media to a model (Only in DB)
+      * @param  array $media_to_update
+      * @return void
+      */
+     private function updateMedia($media_to_update)
+     {
+         foreach($media_to_update as $key => $media)
+         {
+             // Get the media and update the name
+             $this->media->find($key)->update(['name' => $media['name']]);
+         }
      }
 
      /**
