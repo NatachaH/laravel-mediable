@@ -26,21 +26,11 @@ class MediableServiceProvider extends ServiceProvider
     public function boot()
     {
 
-        // VIEWS
-        $this->loadViewsFrom(__DIR__.'/../resources/views', 'mediable');
-
-        // TRANSLATIONS
-        $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'mediable');
-
-        // BLADES
-        Blade::component('mediable-fieldset', \Nh\Mediable\View\Components\MediableFieldset::class);
-
         // VENDORS
         $this->publishes([
             __DIR__.'/../database/migrations/2020_04_16_000001_create_media_table.php' => base_path('database/migrations/2020_04_16_000001_create_media_table.php'),
             __DIR__.'/../config/mediable.php' => config_path()
         ], 'mediable');
-
 
     }
 }
