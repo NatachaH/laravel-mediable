@@ -109,6 +109,26 @@ class Media extends Model
     }
 
     /**
+     * Get the thumbnail url of a media.
+     *
+     * @return string
+     */
+    public function getThumbnailAttribute()
+    {
+        return $this->format == 'image' ? $this->getUrl('thumbnails') : '';
+    }
+
+    /**
+     * Get the url of a media.
+     *
+     * @return string
+     */
+    public function getUrlAttribute()
+    {
+        return $this->getUrl($subfolder);
+    }
+
+    /**
      * Get url of a media.
      * @param  string $subfolder
      * @return string
@@ -128,26 +148,6 @@ class Media extends Model
     {
         $subfolder = is_null($subfolder) ? '/' : '/'.$subfolder.'/';
         return Storage::disk(config('mediable.disk'))->get($this->folder.$subfolder.$this->filename);
-    }
-
-    /**
-     * Get the thumbnail url of a media.
-     *
-     * @return string
-     */
-    public function getThumbnailAttribute()
-    {
-        return $this->format == 'image' ? $this->getUrl('thumbnails') : '';
-    }
-
-    /**
-     * Get the url of a media.
-     *
-     * @return string
-     */
-    public function getUrlAttribute()
-    {
-        return $this->getUrl($subfolder);
     }
 
     /**
