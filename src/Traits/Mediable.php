@@ -42,8 +42,25 @@ trait Mediable
         {
             if($model->hasMedia())
             {
-                $media_to_delete = $model->media->modelKeys();
-                $model->deleteMedia($media_to_delete);
+                $isSoftDelete = in_array('Illuminate\Database\Eloquent\SoftDeletes', class_uses($model))
+                if($isSoftDelete && !$model->isForceDeleting())
+                {
+                    // Soft delete the media
+                    $model->media->delete();
+                } else {
+                    // Force delete the media
+                    $media_to_delete = $model->media->modelKeys();
+                    $model->deleteMedia($media_to_delete);
+                }
+            }
+        });
+
+        // Before an item is restored, restore the media
+        static::restoring(function ($model)
+        {
+            if($model->hasMedia())
+            {
+                $model->media->restore();
             }
         });
     }

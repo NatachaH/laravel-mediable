@@ -5,10 +5,13 @@ namespace Nh\Mediable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Image;
 
 class Media extends Model
 {
+
+    use SoftDeletes;
 
     /**
      * The attributes that are mass assignable.

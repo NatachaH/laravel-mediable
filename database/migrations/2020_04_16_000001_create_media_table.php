@@ -21,6 +21,7 @@ class CreateMediaTable extends Migration
             $table->string('type')->nullable();
             $table->morphs('mediable');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
