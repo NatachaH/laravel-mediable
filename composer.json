@@ -4,8 +4,7 @@
     "license": "MIT",
     "type": "library",
     "require": {
-      "intervention/image": "^2.5",
-      "nh/bs-component": "dev-master"
+      "intervention/image": "^2.5"
     },
     "author": {
         "name": "Natacha Herth",
