@@ -13,6 +13,8 @@ php artisan vendor:publish --tag=mediable
 ```
 
 To make a model mediable, add the **Mediable** trait to your model:
+*To retrieve the media of your model => $post->media*
+*To check if of your model has any media => $post->hasMedia()*
 
 ```
 use Nh\Mediable\Traits\Mediable;
