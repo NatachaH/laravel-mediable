@@ -113,6 +113,9 @@ trait Mediable
         // Create the thumbnail
         $media->resize($config['thumbnails'],'fit','thumbnails');
 
+        // If no size config for the content stop
+        if(!isset($config[$media->base_folder])) { return; }
+
         // Resize by size (fit)
         $sizes = (array)$config[$media->base_folder]['fit'];
         if(!empty($sizes))
