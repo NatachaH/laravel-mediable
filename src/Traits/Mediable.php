@@ -40,29 +40,26 @@ trait Mediable
         // Before an item is deleted
         static::deleting(function ($model)
         {
-            if($model->hasMedia())
+            if($model->hasMedia(true))
             {
-                $isSoftDelete = in_array('Illuminate\Database\Eloquent\SoftDeletes', class_uses($model))
-                if($isSoftDelete && !$model->isForceDeleting())
-                {
-                    // Soft delete the media
-                    $model->media->delete();
-                } else {
-                    // Force delete the media
-                    $media_to_delete = $model->media->modelKeys();
-                    $model->deleteMedia($media_to_delete);
-                }
+                $media_to_delete = $model->media()->withTrashed()->get()->modelKeys();
+                $hasSoftDelete = in_array('Illuminate\Database\Eloquent\SoftDeletes', class_uses($model));
+                $isForceDelete = !$hasSoftDelete || $model->isForceDeleting();
+                $model->deleteMedia($media_to_delete,$isForceDelete);
             }
         });
 
-        // Before an item is restored, restore the media
-        static::restoring(function ($model)
+        if(method_exists(static::class,'restoring'))
         {
-            if($model->hasMedia())
+            // Before an item is restored, restore the media
+            static::restoring(function ($model)
             {
-                $model->media->restore();
-            }
-        });
+                if($model->hasMedia(true))
+                {
+                    $model->media()->withTrashed()->restore();
+                }
+            });
+        }
     }
 
     /**
@@ -76,11 +73,12 @@ trait Mediable
 
      /**
       * Check if the model has some media.
+      * @param boolean $withTrashed
       * @return boolean
       */
-     public function hasMedia()
+     public function hasMedia($withTrashed = false)
      {
-       return $this->media()->exists();
+       return $withTrashed ? $this->media()->withTrashed()->exists() : $this->media()->exists();
      }
 
      /**
@@ -186,20 +184,26 @@ trait Mediable
      /**
       * Delete multiple media to a model (Remove from storage and delete from DB).
       * @param  array $media_to_delete
+      * @param  boolean $forceDelete
       * @return void
       */
-     private function deleteMedia($media_to_delete)
+     private function deleteMedia($media_to_delete,$forceDelete = false)
      {
          foreach($media_to_delete as $id)
          {
-            // Find the Media
-            $media = $this->media->find($id);
+            // Find the Media (even if in trash)
+            $media = $this->media()->withTrashed()->find($id);
 
-            // Remove all file in Storage
-            $media->remove();
-
-            // Delete from the DB
-            $media->delete();
+            if($forceDelete)
+            {
+                // Remove all file in Storage
+                $media->remove();
+                // Force delete from the DB
+                $media->forceDelete();
+            } else {
+                // Soft delete from the DB
+                $media->delete();
+            }
          }
      }
 
