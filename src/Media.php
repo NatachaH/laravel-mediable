@@ -128,7 +128,7 @@ class Media extends Model
      */
     public function getUrlAttribute()
     {
-        return $this->getUrl($subfolder);
+        return $this->getUrl();
     }
 
     /**
