@@ -102,8 +102,8 @@ trait Mediable
               // Fill the information
               $new->fill([
                 'name'        => $media['name'] ?? NULL,
-                'mime'        => $file->getMimeType(),
-                'extension'   => $file->extension(),
+                'mime'        => $file->getClientMimeType(),
+                'extension'   => $file->getClientOriginalExtension(),
                 'type'        => $media['type']
               ]);
 

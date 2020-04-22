@@ -62,44 +62,45 @@ class Media extends Model
      */
     public function getFormatAttribute()
     {
-        switch ($this->mime) {
+        switch ($this->extension) {
 
           // Image
-          case 'image/jpeg':
-          case 'image/png':
+          case 'jpeg':
+          case 'jpg':
+          case 'png':
             return 'image';
             break;
 
           // Vector
-          case 'image/svg+xml':
+          case 'svg':
             return 'vector';
 
           // PDF
-          case 'application/pdf':
+          case 'pdf':
             return 'pdf';
             break;
 
           // Word
-          case 'application/msword':
-          case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
+          case 'doc':
+          case 'docx':
             return 'word';
             break;
 
           // Excel
-          case 'application/vnd.ms-excel':
-          case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
-          case 'text/csv':
+          case 'xlsx':
+          case 'xls':
+          case 'csv':
             return 'excel';
             break;
 
           // Audio
-          case 'audio/mpeg':
+          case 'mp3':
+          case 'mpga':
             return 'audio';
             break;
 
           // Video
-          case 'video/mpeg':
-          case 'video/mp4':
+          case 'mp4':
             return 'video';
             break;
 
