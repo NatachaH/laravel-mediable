@@ -105,7 +105,7 @@ class Media extends Model
 
           // Unknown
           default:
-            return 'unknown';
+            return 'code';
             break;
         }
 
