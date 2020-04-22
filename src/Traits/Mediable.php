@@ -177,7 +177,7 @@ trait Mediable
          foreach($media_to_update as $key => $media)
          {
              // Get the media and update the name
-             $this->media->find($key)->update(['name' => $media['name']]);
+             $this->media->find($key)->update(['name' => $media['name'] ?? NULL]);
          }
      }
 
