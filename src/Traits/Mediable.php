@@ -33,7 +33,7 @@ trait Mediable
             // Delete some medias
             if(request()->has('media_to_delete'))
             {
-                $model->deleteMedia(request()->media_to_delete);
+                $model->deleteMedia(request()->media_to_delete,true);
             }
         });
 
