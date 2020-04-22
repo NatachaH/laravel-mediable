@@ -101,7 +101,7 @@ $media->folder
 ```
 
 You can retrieve the format of a media
-*The format is defined by the mime type, exemple a JPG will return 'image'*
+*The format is defined by the extension, exemple a .jpg will return 'image'*
 
 ```
 $media->format
