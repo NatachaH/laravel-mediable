@@ -38,6 +38,7 @@ If you need to resize the picture media (JPEG/PNG), add the sizes in the config 
 
 To add some media, add in your model form the name and file inputs with the name **media_to_add**:
 *The names of the inputs must be: media_to_add[KEY][name] and media_to_add[KEY][file]*
+*You can also add the position of the media (if not next) with media_to_add[KEY][position]*
 
 ```
 <label>Name of the media</label>
@@ -60,6 +61,7 @@ And the filename is set with the ID of the media.
 
 To edit the name of some media, add in your model form the name input with the name **media_to_edit**:
 *The name of the input must be: media_to_update[KEY][name]*
+*You can also edit the position of the media with media_to_update[KEY][position]*
 
 ```
 <label>Name of the media</label>

@@ -102,6 +102,7 @@ trait Mediable
 
               // Fill the information
               $new->fill([
+                'position'    => $media['position'] ?? NULL,
                 'name'        => $media['name'] ?? NULL,
                 'mime'        => $file->getClientMimeType(),
                 'extension'   => $file->getClientOriginalExtension(),
@@ -178,7 +179,10 @@ trait Mediable
          foreach($media_to_update as $key => $media)
          {
              // Get the media and update the name
-             $this->media->find($key)->update(['name' => $media['name'] ?? NULL]);
+             $this->media->find($key)->update([
+               'position' => $media['position'] ?? NULL,
+               'name' => $media['name'] ?? NULL
+             ]);
          }
      }
 
