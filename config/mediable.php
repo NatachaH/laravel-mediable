@@ -11,6 +11,7 @@ return [
     | More information in the config filesystems.php
     |
     */
+
     'disk' => 'public',
 
     /*
@@ -21,6 +22,7 @@ return [
     | Here you may specify the sizes to use when an image is uploaded
     |
     */
+
     'sizes' => [
 
         'thumbnails' => 160,
@@ -33,7 +35,42 @@ return [
         ]
         */
 
-    ]
+    ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Customize the buttons
+    |--------------------------------------------------------------------------
+    |
+    | Here you may specify the class and the value of each button in the component view
+    |
+    */
+
+    'buttons' => [
+        'add' => [
+          'class' => 'btn-gray rounded-circle',
+          'value' => '<i class="icon icon-plus"></i>'
+        ],
+        'remove' => [
+          'class' => 'btn-gray rounded-circle',
+          'value' => '<i class="icon icon-minus"></i>'
+        ],
+        'delete' => [
+          'class' => 'btn-gray rounded-circle',
+          'value' => '<i class="icon icon-trash"></i>'
+        ],
+        'download' => [
+          'class' => 'btn-gray',
+          'value' => '<i class="icon-download"></i>'
+        ],
+        'download-input-group' => [
+          'class' => 'btn-gray rounded-circle',
+          'value' => '<i class="icon-download"></i>'
+        ],
+        'drag' => [
+          'class' => 'pl-0',
+          'value' => '<i class="icon-move"></i>'
+        ]
+    ]
 
 ];

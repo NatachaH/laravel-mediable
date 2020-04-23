@@ -32,13 +32,60 @@ If you need to resize the picture media (JPEG/PNG), add the sizes in the config 
 ]
 ```
 
-# Add, edit and delete some media
+By default the media are upload in the public disk, but you can change this in the config **mediable.php**.
 
-## Add
+The media are saved in:
+- A folder with the model classname in plural *(exemple: App\Post => posts)*
+- A folder with the media format name in plural *(exemple: 42.jpg => images)*
+- For the images, a folder with the resize value *(exemple: 42.jpg which is resized with a 100px height => h-100)*
 
-To add some media, add in your model form the name and file inputs with the name **media_to_add**:
-*The names of the inputs must be: media_to_add[KEY][name] and media_to_add[KEY][file]*
-*You can also add the position of the media (if not next) with media_to_add[KEY][position]*
+# Components view
+
+The package come with some view components:
+
+- MediaFieldset : to add, edit and delete some media in a form.
+- MediaListing : to display the list of the media of a model.
+
+For use these vomponents you need to add some JS and SCSS files:
+
+## Javascript
+
+```
+require('../../vendor/nh/mediable/resources/js/mediable');
+```
+
+## SASS
+
+```
+@import './vendor/nh/mediable/resources/scss/mediable';
+```
+
+## Config
+
+You can change the classes and the value of all the buttons in the config file **mediable.php**.
+The values can be plain text or some HTML.
+
+## Views
+
+In your form, add the MediaFieldset component:
+
+```
+<x-mediable-fieldseet legend="Medias" type="pictures" :current="$post->media" min="1" max="3" formats="JPEG" has-name is-multiple has-download sortable/>
+```
+
+In your view, add the MediaListing component:
+
+```
+<x-mediable-listing :items="$post->media" show-dates has-download sortable/>
+```
+
+# Manually add, edit and delete
+
+If you don't want to use the view components, you can add some inputs in your form:
+
+## Add a media
+
+*The names of the inputs must be: media_to_add[KEY][name] and media_to_add[KEY][file] and in option you can add media_to_add[KEY][position]*
 
 ```
 <label>Name of the media</label>
@@ -48,36 +95,24 @@ To add some media, add in your model form the name and file inputs with the name
 <input type="file" name="media_to_add[0][file]" />
 ```
 
-By default the media are upload in the public disk, but you can change this in the config **mediable.php**.
+## Edit a media
 
-The media are saved in:
-- A folder with the model classname in plural *(exemple: App\Post => posts)*
-- A folder with the media format name in plural *(exemple: 42.jpg => images)*
-- For the images, a folder with the resize value *(exemple: 42.jpg which is resized with a 100px height => h-100)*
-
-And the filename is set with the ID of the media.
-
-## Edit
-
-To edit the name of some media, add in your model form the name input with the name **media_to_edit**:
-*The name of the input must be: media_to_update[KEY][name]*
-*You can also edit the position of the media with media_to_update[KEY][position]*
+*The name of the input must be: media_to_update[KEY][name] and in option you can add media_to_update[KEY][position]*
 
 ```
 <label>Name of the media</label>
 <input type="text" name="media_to_edit[0][name]" />
 ```
 
-## Delete
+## Delete a media
 
-To delete some media, add in your model form id inputs with the name **media_to_delete**:
 *The name of the input must be: media_to_delete[] and the value must be the ID*
 
 ```
 <input type="checkbox" name="media_to_delete[]" value="1"/>
 ```
 
-# Model Media
+# Model
 
 ## Attributes
 

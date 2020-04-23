@@ -5,6 +5,7 @@
     "type": "library",
     "require": {
       "intervention/image": "^2.5",
+      "nh/bs-component": "dev-master",
       "nh/sortable": "^1.0"
     },
     "author": {
