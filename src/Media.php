@@ -8,10 +8,13 @@ use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Image;
 
+use Nh\Sortable\Traits\Sortable;
+
 class Media extends Model
 {
 
     use SoftDeletes;
+    use Sortable;
 
     /**
      * The attributes that are mass assignable.

@@ -15,6 +15,7 @@ class CreateMediaTable extends Migration
     {
         Schema::create('media', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('position')->after('id')->unsigned()->nullable();
             $table->string('name')->nullable();
             $table->string('mime');
             $table->string('extension');

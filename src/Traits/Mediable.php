@@ -64,11 +64,12 @@ trait Mediable
 
     /**
      * Get the model record associated with the media.
+     * Order them by position (nh/sortable)
      * @return Illuminate\Database\Eloquent\Collection
      */
      public function media()
      {
-          return $this->morphMany(Media::class, 'mediable');
+          return $this->morphMany(Media::class, 'mediable')->byPosition();
      }
 
      /**
