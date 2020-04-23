@@ -39,7 +39,7 @@ class MediableServiceProvider extends ServiceProvider
 
         // BLADES
         Blade::component('mediable-listing', \Nh\Mediable\View\Components\MediaListing::class);
-        Blade::component('mediable-fieldset', \Nh\Mediable\View\Components\Form\MediaFieldset::class);
+        Blade::component('mediable-fieldset', \Nh\Mediable\View\Components\MediaFieldset::class);
 
     }
 }

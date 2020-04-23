@@ -48,16 +48,28 @@ The package come with some view components:
 
 For use these vomponents you need to add some JS and SCSS files:
 
-## Javascript
+## Javascript & SCSS
+
+Add in your package.json the libraries:
 
 ```
+"bs-custom-file-input" : "^1.3.4",
+"sortablejs" : "^1.10.2"
+```
+
+Then in you JS file add:
+
+```
+window.bsCustomFileInput = require('bs-custom-file-input');
+require('../../vendor/nh/bs-component/resources/js/dynamic');
+require('../../vendor/nh/sortable/resources/js/sortable');
 require('../../vendor/nh/mediable/resources/js/mediable');
 ```
 
-## SASS
+And in you SCSS file add:
 
 ```
-@import './vendor/nh/mediable/resources/scss/mediable';
+@import '../../vendor/nh/mediable/resources/sass/mediable';
 ```
 
 ## Config
@@ -70,10 +82,11 @@ The values can be plain text or some HTML.
 In your form, add the MediaFieldset component:
 
 ```
-<x-mediable-fieldseet legend="Medias" type="pictures" :current="$post->media" min="1" max="3" formats="JPEG" has-name is-multiple has-download sortable/>
+<x-mediable-fieldset legend="Medias" type="pictures" :current="$post->media" min="1" max="3" formats="JPEG" has-name is-multiple has-download sortable/>
 ```
 
 In your view, add the MediaListing component:
+*To init the list as sortable, check the package nh/sortable*
 
 ```
 <x-mediable-listing :items="$post->media" show-dates has-download sortable/>

@@ -1,4 +1,4 @@
-<ul {{ $attributes->merge(['class' => 'list-group '.($sortable ? 'sortable' : '')]) }} @if($sortable) data-sortable-model="Nh\Mediable\Media" @endif>
+<ul {{ $attributes->merge(['class' => 'list-group '.($sortable ? 'media-sortable' : '')]) }} @if($sortable) data-sortable-model="Nh\Mediable\Media" @endif>
 
   @foreach ($items as $item)
 
