@@ -8,6 +8,7 @@
   :sortable="$sortable"
   :items="$current"
   viewItem="mediable::includes.dynamic-media"
+  :viewItemOptions="['hasName' => $hasName, 'hasDownload' => $hasDownload]"
   :help="$help"
 >
 
