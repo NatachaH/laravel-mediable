@@ -6,7 +6,7 @@
     "require": {
       "intervention/image": "^2.5",
       "nh/bs-component": "dev-master",
-      "nh/sortable": "^1.0"
+      "nh/sortable": "^1.0.1"
     },
     "author": {
         "name": "Natacha Herth",
