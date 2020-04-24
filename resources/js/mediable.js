@@ -20,13 +20,16 @@ Array.prototype.forEach.call(dynamicMedia, function(el, i) {
 
 // Init the sortable for the .dynamic-list in .dynamic-media
 var sortableDynamic = document.querySelector('.dynamic-media .dynamic-list');
-SortableJs.create(sortableDynamic, {
-   animation: 150,
-   handle: '.drag',
-   onEnd: function (evt) {
-     Array.prototype.forEach.call(sortableDynamic.children, function(el, i) {
-       var input = el.querySelector('.dynamic-position');
-       input.value = i+1;
-     });
-   }
-});
+if(sortableDynamic)
+{
+  SortableJs.create(sortableDynamic, {
+     animation: 150,
+     handle: '.drag',
+     onEnd: function (evt) {
+       Array.prototype.forEach.call(sortableDynamic.children, function(el, i) {
+         var input = el.querySelector('.dynamic-position');
+         input.value = i+1;
+       });
+     }
+  });
+}
