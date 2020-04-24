@@ -5,16 +5,16 @@
   :min="$min"
   :max="$max"
   :help="$help"
-  :btnAdd="__('mediable::media.add')"
-  :btnRemove="__('mediable::media.remove')"
+  :btnAdd="__('mediable::media.actions.add')"
+  :btnRemove="__('mediable::media.actions.remove')"
 >
 
   @foreach ($current as $key => $media)
     <div class="d-flex align-items-end dynamic-item dynamic-item-current">
 
         @if($sortable)
-          <button class="btn drag {{ config('mediable.buttons.drag.class') }}" aria-label="@lang('mediable::media.move')">
-            {!! config('mediable.buttons.drag.value') ?: __('mediable::media.move') !!}
+          <button class="btn drag {{ config('mediable.buttons.drag.class') }}" aria-label="@lang('mediable::media.actions.move')">
+            {!! config('mediable.buttons.drag.value') ?: __('mediable::media.actions.move') !!}
           </button>
           <input type="hidden" class="dynamic-position" name="media_to_update[{{ $media->id }}][position]" value="{{ $media->position }}"/>
         @endif
@@ -26,8 +26,8 @@
         <x-bs-input :class="$hasName ? 'w-50 mr-2' : 'w-100 mr-2'" :label="__('mediable::media.input.file.label')" :name="'media_to_update['.$media->id.'][file]'" :value="$media->filename" readonly :input-group="$hasDownload">
           @if($hasDownload)
             <x-slot name="after">
-              <a href="{{ $media->url }}" class="btn {{ config('mediable.buttons.download-input-group.class') }}" download target="_blank" aria-label="@lang('mediable::media.action.download')">
-                {!! config('mediable.buttons.download-input-group.value') ?: __('mediable::media.download') !!}
+              <a href="{{ $media->url }}" class="btn {{ config('mediable.buttons.download-input-group.class') }}" download target="_blank" aria-label="@lang('mediable::media.actions.download')">
+                {!! config('mediable.buttons.download-input-group.value') ?: __('mediable::media.actions.download') !!}
               </a>
             </x-slot>
           @endif
@@ -35,8 +35,8 @@
 
         <div class="dynamic-item-btn btn-group-toggle ml-auto" data-toggle="buttons">
            <label class="btn {{ config('mediable.buttons.delete.class') }}">
-               <input class="dynamic-delete" type="checkbox" name="media_to_delete[]" value="{{ $media->id }}" aria-label="@lang('mediable::media.delete')">
-               {!! config('mediable.buttons.delete.value') ?: __('mediable::media.delete') !!}
+               <input class="dynamic-delete" type="checkbox" name="media_to_delete[]" value="{{ $media->id }}" aria-label="@lang('mediable::media.actions.delete')">
+               {!! config('mediable.buttons.delete.value') ?: __('mediable::media.actions.delete') !!}
            </label>
         </div>
 
@@ -46,8 +46,8 @@
   <x-slot name="template">
 
       @if($sortable)
-        <button class="btn drag {{ config('mediable.buttons.drag.class') }}" aria-label="@lang('mediable::media.move')">
-          {!! config('mediable.buttons.drag.value') ?: __('mediable::media.move') !!}
+        <button class="btn drag {{ config('mediable.buttons.drag.class') }}" aria-label="@lang('mediable::media.actions.move')">
+          {!! config('mediable.buttons.drag.value') ?: __('mediable::media.actions.move') !!}
         </button>
         <input type="hidden" class="dynamic-position" name="media_to_add[KEY_{{ $type }}][position]"/>
       @endif

@@ -49,14 +49,14 @@ return [
     'buttons' => [
         'delete' => [
           'class' => 'btn-gray rounded-circle',
-          'value' => '<i class="icon icon-trash"></i>'
+          'value' => '<i class="icon-trash"></i>'
         ],
         'download' => [
-          'class' => 'btn-gray',
+          'class' => 'btn-gray rounded-circle',
           'value' => '<i class="icon-download"></i>'
         ],
         'download-input-group' => [
-          'class' => 'btn-gray rounded-circle',
+          'class' => 'btn-info',
           'value' => '<i class="icon-download"></i>'
         ],
         'drag' => [
