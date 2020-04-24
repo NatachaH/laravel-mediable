@@ -47,21 +47,20 @@ return [
     */
 
     'buttons' => [
-        'delete' => [
-          'class' => 'btn-gray rounded-circle',
-          'value' => '<i class="icon-trash"></i>'
+        'sortable' => [
+          'class' => 'btn-info',
+          'label' => 'Move',
+          'value' => null
         ],
         'download' => [
-          'class' => 'btn-gray rounded-circle',
-          'value' => '<i class="icon-download"></i>'
+          'class' => 'btn-info',
+          'label' => 'Download',
+          'value' => null
         ],
         'download-input-group' => [
           'class' => 'btn-info',
-          'value' => '<i class="icon-download"></i>'
-        ],
-        'drag' => [
-          'class' => 'pl-0',
-          'value' => '<i class="icon-move"></i>'
+          'label' => 'Download',
+          'value' => null
         ]
     ]
 

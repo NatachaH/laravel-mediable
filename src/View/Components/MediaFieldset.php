@@ -14,18 +14,6 @@ class MediaFieldset extends Component
     public $legend;
 
     /**
-     * The type of the media in the fieldset
-     * @var string
-     */
-    public $type;
-
-    /**
-     * Array of the current media
-     * @var array
-     */
-    public $current;
-
-    /**
      * Minimum nbr of inputs
      * @var int
      */
@@ -38,6 +26,18 @@ class MediaFieldset extends Component
     public $max;
 
     /**
+     * The type of the media in the fieldset
+     * @var string
+     */
+    public $type;
+
+    /**
+     * Array of the current media
+     * @var array
+     */
+    public $current;
+
+    /**
      * Format of the media
      * @var string
      */
@@ -48,12 +48,6 @@ class MediaFieldset extends Component
      * @var boolean
      */
     public $hasName;
-
-    /**
-     * Is there multiple inputs (dynamic from nh/bs-component)
-     * @var boolean
-     */
-    public $isMultiple;
 
     /**
      * Enable the download button.
@@ -99,16 +93,15 @@ class MediaFieldset extends Component
      *
      * @return void
      */
-    public function __construct($legend = null, $type, $current = [], $min = 1, $max = null, $formats = null, $hasName = false, $isMultiple = false, $hasDownload = false, $sortable = false)
+    public function __construct($legend = null, $min = 1, $max = null, $type = 'picture', $current = [], $formats = null, $hasName = false, $hasDownload = false, $sortable = false)
     {
-        $this->legend       = is_null($legend) ? trans_choice('mediable::media.media', ($isMultiple ? 2 : 1)) : $legend;
-        $this->type         = $type;
-        $this->current      = $current;
+        $this->legend       = is_null($legend) ? trans_choice('mediable::media.media', 2) : $legend;
         $this->min          = $min;
         $this->max          = $max;
+        $this->type         = $type;
+        $this->current      = $current;
         $this->formats      = $formats;
         $this->hasName      = $hasName;
-        $this->isMultiple   = $isMultiple;
         $this->hasDownload  = $hasDownload;
         $this->sortable     = $sortable;
     }

@@ -5,8 +5,8 @@
       <li class="list-group-item d-flex align-items-center" data-id="{{ $item->id }}">
 
           @if($sortable)
-            <button class="btn drag {{ config('mediable.buttons.drag.class') }}" aria-label="@lang('mediable::media.move')">
-              {!! config('mediable.buttons.drag.value') !!}
+            <button class="btn drag {{ config('mediable.buttons.sortable.class') }}" aria-label="{{ __(config('mediable.buttons.sortable.label')) }}">
+              {!! config('mediable.buttons.sortable.value') ?? __(config('mediable.buttons.sortable.label'))  !!}
             </button>
           @endif
 
@@ -20,8 +20,8 @@
           @endif
 
           @if($hasDownload)
-            <a href="{{ $item->url }}" class="btn {{ config('mediable.buttons.download.class') }}" download target="_blank" aria-label="@lang('mediable::media.action.download')">
-              {!! config('mediable.buttons.download.value') !!}
+            <a href="{{ $item->url }}" class="btn {{ config('mediable.buttons.download.class') }}" download target="_blank" aria-label="{{ __(config('mediable.buttons.download.label')) }}">
+              {!! config('mediable.buttons.download.value') ?? __(config('mediable.buttons.download.label')) !!}
             </a>
           @endif
 
