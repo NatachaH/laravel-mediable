@@ -46,7 +46,7 @@ The package come with some view components:
 - MediaFieldset : to add, edit and delete some media in a form.
 - MediaListing : to display the list of the media of a model.
 
-For use these vomponents you need to add some JS and SCSS files:
+For use these components you need to add some JS and SCSS files:
 
 ## Javascript & SCSS
 

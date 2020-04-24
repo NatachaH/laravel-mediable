@@ -5,9 +5,9 @@
   :min="$min"
   :max="$max"
   :help="$help"
-  :btnAdd="['class' => config('mediable.buttons.add.class'),'label' => __('mediable::media.add'),'value' => config('mediable.buttons.add.value') ?: ('mediable::media.add')]"
-  :btnRemove="['class' => config('mediable.buttons.remove.class'),'label' => __('mediable::media.remove'),'value' => config('mediable.buttons.remove.value') ?: ('mediable::media.remove')]
-">
+  :btnAdd="__('mediable::media.add')"
+  :btnRemove="__('mediable::media.remove')"
+>
 
   @foreach ($current as $key => $media)
     <div class="d-flex align-items-end dynamic-item dynamic-item-current">

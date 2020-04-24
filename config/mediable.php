@@ -47,14 +47,6 @@ return [
     */
 
     'buttons' => [
-        'add' => [
-          'class' => 'btn-gray rounded-circle',
-          'value' => '<i class="icon icon-plus"></i>'
-        ],
-        'remove' => [
-          'class' => 'btn-gray rounded-circle',
-          'value' => '<i class="icon icon-minus"></i>'
-        ],
         'delete' => [
           'class' => 'btn-gray rounded-circle',
           'value' => '<i class="icon icon-trash"></i>'
