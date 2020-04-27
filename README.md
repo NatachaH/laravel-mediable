@@ -39,66 +39,14 @@ The media are saved in:
 - A folder with the media format name in plural *(exemple: 42.jpg => images)*
 - For the images, a folder with the resize value *(exemple: 42.jpg which is resized with a 100px height => h-100)*
 
-# Components view
 
-The package come with some view components:
 
-- MediaFieldset : to add, edit and delete some media in a form.
-- MediaListing : to display the list of the media of a model.
-
-For use these components you need to add some JS and SCSS files:
-
-## Javascript & SCSS
-
-Add in your package.json the libraries:
-
-```
-"bs-custom-file-input" : "^1.3.4",
-"sortablejs" : "^1.10.2"
-```
-
-Then in you JS file add:
-
-```
-window.bsCustomFileInput = require('bs-custom-file-input');
-require('../../vendor/nh/bs-component/resources/js/dynamic');
-require('../../vendor/nh/sortable/resources/js/sortable');
-require('../../vendor/nh/mediable/resources/js/mediable');
-```
-
-And in you SCSS file add:
-
-```
-@import '../../vendor/nh/mediable/resources/sass/mediable';
-```
-
-## Config
-
-You can change the classes and the value of all the buttons in the config file **mediable.php**.
-The values can be plain text or some HTML.
 
 ## Views
 
-In your form, add the MediaFieldset component:
-
-```
-<x-mediable-fieldset legend="Medias" type="pictures" :current="$post->media" min="1" max="3" formats="JPEG" has-name is-multiple has-download sortable/>
-```
-
-In your view, add the MediaListing component:
-*To init the list as sortable, check the package nh/sortable*
-
-```
-<x-mediable-listing :items="$post->media" show-dates has-download sortable/>
-```
-
-# Manually add, edit and delete
-
-If you don't want to use the view components, you can add some inputs in your form:
-
 ## Add a media
 
-*The names of the inputs must be: media_to_add[KEY][name] and media_to_add[KEY][file] and in option you can add media_to_add[KEY][position]*
+The names of the inputs must be: **media_to_add[KEY][name]** and **media_to_add[KEY][file]** and in option you can add **media_to_add[KEY][position]**
 
 ```
 <label>Name of the media</label>
@@ -110,7 +58,7 @@ If you don't want to use the view components, you can add some inputs in your fo
 
 ## Edit a media
 
-*The name of the input must be: media_to_update[KEY][name] and in option you can add media_to_update[KEY][position]*
+The name of the input must be: **media_to_update[KEY][name]** and in option you can add **media_to_update[KEY][position]**
 
 ```
 <label>Name of the media</label>
@@ -119,7 +67,7 @@ If you don't want to use the view components, you can add some inputs in your fo
 
 ## Delete a media
 
-*The name of the input must be: media_to_delete[] and the value must be the ID*
+The name of the input must be: **media_to_delete[]** and the value must be the ID
 
 ```
 <input type="checkbox" name="media_to_delete[]" value="1"/>
