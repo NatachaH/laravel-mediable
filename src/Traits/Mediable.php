@@ -73,6 +73,16 @@ trait Mediable
      }
 
      /**
+      * Get the model record associated with the media by type.
+      * @param  string $type
+      * @return Illuminate\Database\Eloquent\Collection
+      */
+      public function mediaByType($type)
+      {
+           return $this->media->where('type',$type);
+      }
+
+     /**
       * Check if the model has some media.
       * @param boolean $withTrashed
       * @return boolean
