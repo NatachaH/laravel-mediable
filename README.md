@@ -32,6 +32,20 @@ If you need to resize the picture media (JPEG/PNG), add the sizes in the config 
 ]
 ```
 
+If you need to add a watermark you can activate the functionnality in the config **mediable.php**, add the sizes in the config **mediable.php** at **'sizes'**:
+
+```
+'watermark' => [
+    'enable' => true, // Enable the watermark
+    'src' => 'images/watermark.png', // Must be in public folder
+    'position' => [
+      'name' => 'bottom-right',
+      'x' => 5,
+      'y' => 5
+     ]
+],
+```
+
 By default the media are upload in the public disk, but you can change this in the config **mediable.php**.
 
 The media are saved in:

@@ -225,6 +225,20 @@ class Media extends Model
                 break;
         }
 
+        // Watermark
+        if(config('mediable.watermark.enable'))
+        {
+            // Config
+            $watermarkSrc = config('mediable.watermark.src');
+            $watermarkPosition = config('mediable.watermark.position.name') ?? 'bottom-left';
+            $watermarkPositionX = config('mediable.watermark.position.x') ?? 0;
+            $watermarkPositionY = config('mediable.watermark.position.y') ?? 0;
+
+            // Define Watermark and insert it
+            $watermark = public_path($watermarkSrc);
+            $file->insert($watermark, $watermarkPosition, $watermarkPositionX, $watermarkPositionY);
+        }
+
         // Save the new file in the an other folder
         $subfolder = is_null($folder) ? $prefix.$size : $folder;
         $newFolder = $this->folder.'/'.$subfolder;
