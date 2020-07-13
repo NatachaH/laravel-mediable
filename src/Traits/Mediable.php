@@ -3,6 +3,7 @@ namespace Nh\Mediable\Traits;
 
 use App;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Str;
 
 use Nh\Mediable\Media;
 
@@ -110,12 +111,15 @@ trait Mediable
               // Create a new Media
               $new = new Media;
 
+              // Extension
+              $ext = Str::lower($file->getClientOriginalExtension());
+
               // Fill the information
               $new->fill([
                 'position'    => $media['position'] ?? NULL,
                 'name'        => $media['name'] ?? NULL,
                 'mime'        => $file->getClientMimeType(),
-                'extension'   => $file->getClientOriginalExtension(),
+                'extension'   => $ext,
                 'type'        => $media['type']
               ]);
 
