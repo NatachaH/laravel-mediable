@@ -5,6 +5,7 @@ use App;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
 
+use Nh\Mediable\Events\MediaEvent;
 use Nh\Mediable\Media;
 
 trait Mediable
@@ -131,6 +132,9 @@ trait Mediable
 
               // Resize the media
               $this->resizeMediaByConfig($new);
+
+              // Fire event
+              MediaEvent::dispatch('created', $this);
           }
      }
 
@@ -197,6 +201,9 @@ trait Mediable
                'position' => $media['position'] ?? NULL,
                'name' => $media['name'] ?? NULL
              ]);
+
+             // Fire event
+             MediaEvent::dispatch('updated', $this);
          }
      }
 
@@ -219,9 +226,13 @@ trait Mediable
                 $media->remove();
                 // Force delete from the DB
                 $media->forceDelete();
+                // Fire event
+                MediaEvent::dispatch('force-deleted', $this);
             } else {
                 // Soft delete from the DB
                 $media->delete();
+                // Fire event
+                MediaEvent::dispatch('soft-deleted', $this);
             }
          }
      }

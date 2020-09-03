@@ -148,3 +148,14 @@ You can retrieve the file of a media, and you can add a subfolder.
 ```
 $media->getFile('h-100')
 ```
+
+# Events
+
+You can use the **MediaEvent** for dispatch events that happen to the media.
+*This will return an event with the $event->name as media.my-event*
+
+```
+MediaEvent::dispatch('my-event', $model);
+```
+
+By default the method **ADD**, **UPDATE**, **SOFT DELETE** and **FORCE DELETE** will fire the event **media.created**, **media.updated**, **media.soft-deleted** and **media.force-deleted**
