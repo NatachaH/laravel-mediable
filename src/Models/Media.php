@@ -1,6 +1,6 @@
 <?php
 
-namespace Nh\Mediable;
+namespace Nh\Mediable\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
 
 use Nh\Mediable\Events\MediaEvent;
-use Nh\Mediable\Media;
+use Nh\Mediable\Models\Media;
 
 trait Mediable
 {
@@ -140,7 +140,7 @@ trait Mediable
 
      /**
       * Resize a media by config
-      * @param  Nh\Mediable\Media $media
+      * @param  Nh\Mediable\Models\Media $media
       * @return void
       */
      private function resizeMediaByConfig($media)
