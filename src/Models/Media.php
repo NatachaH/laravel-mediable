@@ -26,6 +26,15 @@ class Media extends Model
     ];
 
     /**
+     * Default sortable field and direction.
+     * @var array
+     */
+     protected $sortable = [
+       'field' => 'position',
+       'direction' => 'asc'
+     ];
+
+    /**
      * Get the filename.
      *
      * @return string
