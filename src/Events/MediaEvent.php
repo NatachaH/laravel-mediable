@@ -10,6 +10,7 @@ class MediaEvent
     use Dispatchable, SerializesModels;
 
     public $name;
+    public $relation;
     public $model;
 
     /**
@@ -19,7 +20,8 @@ class MediaEvent
      */
     public function __construct($name,$model)
     {
-          $this->name    = 'media.'.$name;
+          $this->name    = $name;
+          $this->relation = 'media';
           $this->model   = $model;
     }
 }
