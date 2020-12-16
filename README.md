@@ -142,6 +142,13 @@ You can retrieve the url of a media, and you can add a subfolder.
 $media->getUrl('h-100')
 ```
 
+You can retrieve the absolute url of a media from the server, and you can add a subfolder.
+*Exemple: 42.jpg which is resized with a 100px height => '/Users/YOURUSERNAME/Web/MYPROJECT/public/storage/FOLDER/images/SUBFOLDER/42.png'*
+
+```
+$media->getAbsoluteUrl('h-100')
+```
+
 You can retrieve the file of a media, and you can add a subfolder.
 *Exemple: 42.jpg which is resized with a 100px height => 'posts/images/h-100/42.jpg'*
 

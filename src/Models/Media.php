@@ -156,6 +156,17 @@ class Media extends Model
     }
 
     /**
+     * Get url of a media from the absolute path.
+     * @param  string $subfolder
+     * @return string
+     */
+    public function getAbsoluteUrl($subfolder = null)
+    {
+        $subfolder = is_null($subfolder) ? '/' : '/'.$subfolder.'/';
+        return public_path().'/storage/'.$this->folder.$subfolder.$this->filename;
+    }
+
+    /**
      * Get file of a media.
      * @param  string $subfolder
      * @return string
