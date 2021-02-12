@@ -196,14 +196,20 @@ trait Mediable
      {
          foreach($media_to_update as $key => $media)
          {
+             // Get the media
+             $model = $this->media->find($key);
+
              // Get the media and update the name
-             $this->media->find($key)->update([
+             $model->update([
                'position' => $media['position'] ?? NULL,
                'name' => $media['name'] ?? NULL
              ]);
 
              // Fire event
-             MediaEvent::dispatch('updated', $this);
+             if($model->wasChanged())
+             {
+                MediaEvent::dispatch('updated', $this);
+             }
          }
      }
 
