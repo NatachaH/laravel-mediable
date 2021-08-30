@@ -75,6 +75,15 @@ trait Mediable
      }
 
      /**
+      * Get the first media of the model.
+      * @return Nh\Mediable\Media
+      */
+      public function firstMedia()
+      {
+           return $this->morphOne(Media::class, 'mediable')->ofMany('position','min');
+      }
+
+     /**
       * Get the model record associated with the media by type.
       * @param  string $type
       * @return Illuminate\Database\Eloquent\Collection

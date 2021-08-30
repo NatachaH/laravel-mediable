@@ -22,6 +22,18 @@ use Nh\Mediable\Traits\Mediable;
 use Mediable;
 ```
 
+You can retrieve the media (order by a position) of a model:
+
+```
+$model->media;
+```
+
+Or you can retrieve the first media of a model:
+
+```
+$model->firstMedia;
+```
+
 If you need to resize the picture media (JPEG/PNG), add the sizes in the config **mediable.php** at **'sizes'**:
 
 ```
