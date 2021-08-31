@@ -21,7 +21,7 @@ class MediaEvent
     public function __construct($name,$model,$relation = null)
     {
           $this->name     = $name;
-          $this->model    = $model
+          $this->model    = $model;
           $this->relation = $relation;
     }
 }
