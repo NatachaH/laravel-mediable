@@ -59,6 +59,7 @@ trait Mediable
                 if($model->hasMedia(true))
                 {
                     $model->media()->withTrashed()->restore();
+                    MediaEvent::dispatch('restored', $model);
                 }
             });
         }

@@ -4,6 +4,7 @@ namespace Nh\Mediable\Events;
 
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use Nh\Mediable\Models\Media;
 
 class MediaEvent
 {
@@ -22,6 +23,6 @@ class MediaEvent
     {
           $this->name     = $name;
           $this->model    = $model;
-          $this->relation = $relation;
+          $this->relation = is_null($relation) ? new Media : $relation;
     }
 }
