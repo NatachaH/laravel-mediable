@@ -143,7 +143,7 @@ trait Mediable
               $this->resizeMediaByConfig($new);
 
               // Fire event
-              MediaEvent::dispatch('created', $this);
+              MediaEvent::dispatch('created', $this, $new);
           }
      }
 
@@ -217,7 +217,7 @@ trait Mediable
              // Fire event
              if($model->wasChanged())
              {
-                MediaEvent::dispatch('updated', $this);
+                MediaEvent::dispatch('updated', $this, $model);
              }
          }
      }
@@ -247,7 +247,7 @@ trait Mediable
                 // Soft delete from the DB
                 $media->delete();
                 // Fire event
-                MediaEvent::dispatch('soft-deleted', $this);
+                MediaEvent::dispatch('soft-deleted', $this, $media);
             }
          }
      }

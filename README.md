@@ -171,8 +171,7 @@ $media->getFile('h-100')
 # Events
 
 You can use the **MediaEvent** for dispatch events that happen to the media.
-*This will return an event with the $event->name as my-event, $event->relation as media and $event->model as an instance of Nh/Models/Media*
 
 ```
-MediaEvent::dispatch('my-event', $model);
+MediaEvent::dispatch('my-event', $model, $media);
 ```
