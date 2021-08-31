@@ -58,8 +58,11 @@ trait Mediable
             {
                 if($model->hasMedia(true))
                 {
-                    $model->media()->withTrashed()->restore();
-                    MediaEvent::dispatch('restored', $model);
+                    $media_to_restore = $model->media()->withTrashed()->get();
+                    foreach ($media_to_restore as $key => $media) {
+                      $media->restore();
+                      MediaEvent::dispatch('restored', $model, $media);
+                    }
                 }
             });
         }
@@ -243,7 +246,7 @@ trait Mediable
                 // Force delete from the DB
                 $media->forceDelete();
                 // Fire event
-                MediaEvent::dispatch('force-deleted', $this);
+                MediaEvent::dispatch('force-deleted', $this, $media);
             } else {
                 // Soft delete from the DB
                 $media->delete();
