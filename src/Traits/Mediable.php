@@ -47,7 +47,7 @@ trait Mediable
                 $media_to_delete = $model->media()->withTrashed()->get()->modelKeys();
                 $hasSoftDelete = in_array('Illuminate\Database\Eloquent\SoftDeletes', class_uses($model));
                 $isForceDelete = !$hasSoftDelete || $model->isForceDeleting();
-                $model->deleteMedia($media_to_delete,$isForceDelete);
+                $model->deleteMedia($media_to_delete,$isForceDelete,'auto');
             }
         });
 
@@ -61,7 +61,7 @@ trait Mediable
                     $media_to_restore = $model->media()->withTrashed()->get();
                     foreach ($media_to_restore as $key => $media) {
                       $media->restore();
-                      MediaEvent::dispatch('restored', $model, $media);
+                      MediaEvent::dispatch('restored', $model, $media, 'auto');
                     }
                 }
             });
@@ -232,7 +232,7 @@ trait Mediable
       * @param  boolean $forceDelete
       * @return void
       */
-     private function deleteMedia($media_to_delete,$forceDelete = false)
+     private function deleteMedia($media_to_delete,$forceDelete = false,$comment = null)
      {
          foreach($media_to_delete as $id)
          {
@@ -246,12 +246,12 @@ trait Mediable
                 // Force delete from the DB
                 $media->forceDelete();
                 // Fire event
-                MediaEvent::dispatch('force-deleted', $this, $media);
+                MediaEvent::dispatch('force-deleted', $this, $media, $comment);
             } else {
                 // Soft delete from the DB
                 $media->delete();
                 // Fire event
-                MediaEvent::dispatch('soft-deleted', $this, $media);
+                MediaEvent::dispatch('soft-deleted', $this, $media, $comment);
             }
          }
      }
