@@ -35,7 +35,7 @@ trait Mediable
             // Delete some medias
             if(request()->has('media_to_delete'))
             {
-                $model->deleteMedia(request()->media_to_delete,true);
+                $model->deleteMedia(request()->media_to_delete,true,true);
             }
         });
 
@@ -47,7 +47,7 @@ trait Mediable
                 $media_to_delete = $model->media()->withTrashed()->get()->modelKeys();
                 $hasSoftDelete = in_array('Illuminate\Database\Eloquent\SoftDeletes', class_uses($model));
                 $isForceDelete = !$hasSoftDelete || $model->isForceDeleting();
-                $model->deleteMedia($media_to_delete,$isForceDelete,'auto');
+                $model->deleteMedia($media_to_delete,$isForceDelete,false);
             }
         });
 
@@ -58,11 +58,8 @@ trait Mediable
             {
                 if($model->hasMedia(true))
                 {
-                    $media_to_restore = $model->media()->withTrashed()->get();
-                    foreach ($media_to_restore as $key => $media) {
-                      $media->restore();
-                      MediaEvent::dispatch('restored', $model, $media, 'auto');
-                    }
+                    $media_to_restore = $model->media()->withTrashed()->restore();
+                    MediaEvent::dispatch('restored', $model, null, $media_to_restore);
                 }
             });
         }
@@ -147,7 +144,7 @@ trait Mediable
               $this->resizeMediaByConfig($new);
 
               // Fire event
-              MediaEvent::dispatch('created', $this, $new);
+              MediaEvent::dispatch('created', $this, $new, 1);
           }
      }
 
@@ -221,7 +218,7 @@ trait Mediable
              // Fire event
              if($model->wasChanged())
              {
-                MediaEvent::dispatch('updated', $this, $model);
+                MediaEvent::dispatch('updated', $this, $model, 1);
              }
          }
      }
@@ -230,9 +227,10 @@ trait Mediable
       * Delete multiple media to a model (Remove from storage and delete from DB).
       * @param  array $media_to_delete
       * @param  boolean $forceDelete
+      * @param  boolean $eventPerMedia
       * @return void
       */
-     private function deleteMedia($media_to_delete,$forceDelete = false,$comment = null)
+     private function deleteMedia($media_to_delete,$forceDelete = false, $eventPerMedia = false)
      {
          foreach($media_to_delete as $id)
          {
@@ -245,15 +243,26 @@ trait Mediable
                 $media->remove();
                 // Force delete from the DB
                 $media->forceDelete();
-                // Fire event
-                MediaEvent::dispatch('force-deleted', $this, $media, $comment);
             } else {
                 // Soft delete from the DB
                 $media->delete();
-                // Fire event
-                MediaEvent::dispatch('soft-deleted', $this, $media, $comment);
             }
+
+            if($eventPerMedia)
+            {
+              // Fire event per media
+              MediaEvent::dispatch(($forceDelete ? 'force-deleted' : 'soft-deleted'), $this, $media, 1);
+            }
+
+         }
+
+         if(!$eventPerMedia)
+         {
+           // Fire event for global delete
+           MediaEvent::dispatch(($forceDelete ? 'force-deleted' : 'soft-deleted'), $this, null, count($media_to_delete));
          }
      }
+
+
 
 }

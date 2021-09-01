@@ -171,7 +171,8 @@ $media->getFile('h-100')
 # Events
 
 You can use the **MediaEvent** for dispatch events that happen to the media.
+*You can pass a name, the parent model, the media model (or null) and the number of media affected*
 
 ```
-MediaEvent::dispatch('my-event', $model, $media);
+MediaEvent::dispatch('my-event', $model, $media, 1);
 ```
