@@ -38,7 +38,7 @@ class MediaEvent
      * Create a new event instance.
      * @param string  $name
      * @param \Illuminate\Database\Eloquent\Model  $model
-     * @param \Nh\Mediable\Models\Media  $name
+     * @param \Nh\Mediable\Models\Media  $relation
      * @param int  $number
      */
     public function __construct($name,$model,$relation = null,$number = null)
