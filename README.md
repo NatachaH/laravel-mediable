@@ -6,10 +6,15 @@ Install the package via composer:
 composer require nh/mediable
 ```
 
-Publish the database and the config for the media:
+Publish the config and the Media model:
 
 ```
 php artisan vendor:publish --tag=mediable
+```
+
+If you need to publish the database you can use:
+```
+php artisan vendor:publish --tag=mediable-database
 ```
 
 To make a model mediable, add the **Mediable** trait to your model:

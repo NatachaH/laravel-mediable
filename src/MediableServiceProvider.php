@@ -26,7 +26,8 @@ class MediableServiceProvider extends ServiceProvider
 
         // VENDORS
         $this->publishes([
-            __DIR__.'/../config/mediable.php' => config_path('mediable.php')
+            __DIR__.'/../config/mediable.php' => config_path('mediable.php'),
+            __DIR__.'/Models/Media.php' => app_path('Models/Media.php')
         ], 'mediable');
 
         // VENDORS

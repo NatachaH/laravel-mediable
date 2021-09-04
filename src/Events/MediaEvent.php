@@ -4,7 +4,7 @@ namespace Nh\Mediable\Events;
 
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-use Nh\Mediable\Models\Media;
+use App\Models\Media;
 
 class MediaEvent
 {
@@ -24,7 +24,7 @@ class MediaEvent
 
     /**
      * The media model
-     * @var \Nh\Mediable\Models\Media
+     * @var \App\Models\Media
      */
     public $relation;
 
@@ -38,7 +38,7 @@ class MediaEvent
      * Create a new event instance.
      * @param string  $name
      * @param \Illuminate\Database\Eloquent\Model  $model
-     * @param \Nh\Mediable\Models\Media  $relation
+     * @param \App\Models\Media  $relation
      * @param int  $number
      */
     public function __construct($name,$model,$relation = null,$number = null)
