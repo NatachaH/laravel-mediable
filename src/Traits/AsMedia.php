@@ -8,6 +8,23 @@ use Image;
 trait AsMedia
 {
 
+   /**
+     * Get the owning mediable model.
+     * @return Illuminate\Database\Eloquent\Model
+     */
+    public function mediable()
+    {
+        $mediable = $this->morphTo();
+        if(in_array('Illuminate\Database\Eloquent\SoftDeletes', class_uses($mediable)))
+        {
+          // If relation model as soft-delete return with trashed
+          return $mediable->withTrashed();
+        } else {
+          // Otherwise return just the relation
+          return $mediable;
+        }
+    }
+
     /**
      * Get the filename.
      *
