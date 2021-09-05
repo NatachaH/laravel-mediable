@@ -3,6 +3,7 @@ namespace Nh\Mediable\Traits;
 
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Image;
 
 trait AsMedia
@@ -14,15 +15,7 @@ trait AsMedia
      */
     public function mediable()
     {
-        $mediable = $this->morphTo();
-        if(in_array('Illuminate\Database\Eloquent\SoftDeletes', class_uses($mediable)))
-        {
-          // If relation model as soft-delete return with trashed
-          return $mediable->withTrashed();
-        } else {
-          // Otherwise return just the relation
-          return $mediable;
-        }
+        return $this->morphTo()->withoutGlobalScope(SoftDeletingScope::class);
     }
 
     /**
