@@ -111,8 +111,12 @@ trait Mediable
       */
      private function addMedia($media_to_add)
      {
+          $i = 0;
           foreach ($media_to_add as $key => $media)
           {
+              // Count
+              $i++;
+
               // If no file, don't do anything
               if(empty($media['file'])) { continue; }
 
@@ -127,7 +131,7 @@ trait Mediable
 
               // Fill the information
               $new->fill([
-                'position'    => $media['position'] ?? NULL,
+                'position'    => $media['position'] ?? ($this->hasMedia() ? NULL : $i),
                 'name'        => $media['name'] ?? NULL,
                 'mime'        => $file->getClientMimeType(),
                 'extension'   => $ext,
@@ -211,7 +215,7 @@ trait Mediable
 
              // Get the media and update the name
              $model->update([
-               'position' => $media['position'] ?? NULL,
+               'position' => $media['position'] ?? $model->position,
                'name' => $media['name'] ?? NULL
              ]);
 
