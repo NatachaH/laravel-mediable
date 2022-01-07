@@ -2,7 +2,6 @@
 namespace Nh\Mediable\Traits;
 
 use App;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
 
 use Nh\Mediable\Events\MediaEvent;
@@ -72,7 +71,7 @@ trait Mediable
      */
      public function media()
      {
-          return $this->morphMany(Media::class, 'mediable')->byPosition();
+          return $this->morphMany(Media::class, 'mediable')->orderBy('position', 'asc');
      }
 
      /**
