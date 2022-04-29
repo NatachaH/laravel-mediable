@@ -96,11 +96,17 @@ trait Mediable
      /**
       * Check if the model has some media.
       * @param boolean $withTrashed
+      * @param string $type
       * @return boolean
       */
-     public function hasMedia($withTrashed = false)
+     public function hasMedia($withTrashed = false, $type = null)
      {
-       return $withTrashed ? $this->media()->withTrashed()->exists() : $this->media()->exists();
+        if(is_null($type))
+        {
+            return $withTrashed ? $this->media()->withTrashed()->exists() : $this->media()->exists();
+        } else {
+            return $withTrashed ? $this->media()->where('type',$type)->withTrashed()->exists() : $this->media()->where('type',$type)->exists();
+        }
      }
 
      /**

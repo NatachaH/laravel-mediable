@@ -18,8 +18,6 @@ php artisan vendor:publish --tag=mediable-database
 ```
 
 To make a model mediable, add the **Mediable** trait to your model:
-*To retrieve the media of your model => $post->media*
-*To check if of your model has any media => $post->hasMedia()*
 
 ```
 use Nh\Mediable\Traits\Mediable;
@@ -37,6 +35,20 @@ Or you can retrieve the first media of a model:
 
 ```
 $model->firstMedia;
+```
+
+Retrieve all media by a type:
+
+```
+$model->mediaByType('picture');
+```
+
+You can check if a model has some media:
+
+```
+$model->hasMedia(); // Check if there is some media
+$model->hasMedia(true); // Check if there is some media, even soft deleted ones
+$model->hasMedia(false,'picture'); // Check if there is some media of type "picture"
 ```
 
 If you need to resize the picture media (JPEG/PNG), add the sizes in the config **mediable.php** at **'sizes'**:
