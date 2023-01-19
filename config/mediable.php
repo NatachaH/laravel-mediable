@@ -54,10 +54,10 @@ return [
         'src' => 'images/watermark.png', // Must be in public folder
 
         'position' => [
-          'name' => 'bottom-right',
-          'x' => 5,
-          'y' => 5
-         ]
+            'name' => 'bottom-right',
+            'x' => 5,
+            'y' => 5,
+        ],
 
     ],
 
