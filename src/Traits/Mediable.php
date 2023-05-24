@@ -146,6 +146,12 @@ trait Mediable
               // Save in DB
               $this->media()->save($new);
 
+              // Save translations
+              if(in_array('Nh\Translatable\Traits\Translatable', class_uses($new)))
+              {
+                    $new->setTranslations($media['translations']);
+              } 
+
               // Upload the file
               $upload = $new->upload($file);
 
@@ -224,6 +230,12 @@ trait Mediable
                'name' => $media['name'] ?? NULL
              ]);
 
+             // Save translations
+             if(in_array('Nh\Translatable\Traits\Translatable', class_uses($model)))
+             {
+                   $model->setTranslations($media['translations']);
+             } 
+
              // Fire event
              if($model->wasChanged())
              {
@@ -271,7 +283,5 @@ trait Mediable
            MediaEvent::dispatch(($forceDelete ? 'force-deleted' : 'soft-deleted'), $this, null, count($media_to_delete));
          }
      }
-
-
 
 }
