@@ -147,7 +147,7 @@ trait Mediable
               $this->media()->save($new);
 
               // Save translations
-              if(in_array('Nh\Translatable\Traits\Translatable', class_uses($new)))
+              if(in_array('Nh\Translatable\Traits\Translatable', class_uses($new)) && isset($media['translations']))
               {
                     $new->setTranslations($media['translations']);
               } 
@@ -231,7 +231,7 @@ trait Mediable
              ]);
 
              // Save translations
-             if(in_array('Nh\Translatable\Traits\Translatable', class_uses($model)))
+             if(in_array('Nh\Translatable\Traits\Translatable', class_uses($model)) && isset($media['translations']))
              {
                    $model->setTranslations($media['translations']);
              } 
